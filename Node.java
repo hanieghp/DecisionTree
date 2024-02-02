@@ -5,21 +5,22 @@ public class Node {
     private float infoGain;
     boolean isLeaf = false;
     private float value;
+
+    public void setDepth(int depth) {
+        this.depth = depth;
+    }
+
     float[][] data;
     float[] lables;
+    int depth=0;
 
-    public Node(Integer featureIndex, float threshold, Node left, Node right, float infoGain) {
-        this.featureIndex = featureIndex;
-        this.threshold = threshold;
-        this.infoGain = infoGain;
-    }
     public Node(int featureIndex,float[][] data,float[] lables) {
         this.featureIndex = featureIndex;
          value = -1;
          this.data =data;
          this.lables=lables;
     }
-    public Node(Integer featureIndex,float[][] data,float[] lables,float value) {
+    public Node(int featureIndex,float[][] data,float[] lables,float value) {
         this.featureIndex = featureIndex;
         this.value = value;
         this.data =data;
@@ -44,14 +45,11 @@ public class Node {
         return newborn;
     }
     public Node addchild(float kh,float[][] data,float[] lables){
-        Node newborn = new Node(-1,data,lables,kh);
+        Node newborn = new Node(featureIndex,data,lables,kh);
         children.add(newborn);
+        System.out.println("newchild add");
         return newborn;
     }
-    public void display(Node node){
-            System.out.println("Feature : " + node.getFeatureIndex()+ " value " + node.value);
-    }
-
     public float getInfoGain() {
         return infoGain;
     }

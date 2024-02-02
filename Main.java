@@ -1,12 +1,14 @@
 import java.io.*;
 //import java.util.Arrays;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
-    public static final int rows = 4;
-    public static final int cols = 3;
+    public static final int rows = 10;
+    public static final int cols = 8;
     public static final String filePathData = "src/Data/feature_train.csv";
     public static final String filePathLabel = "src/Data/label_train.csv";
+    public static String[] attributes;
     //public static int rows,cols;
     public static void main(String[] args) throws IOException {
 //        rows = getRowCount(filePathData);
@@ -15,13 +17,15 @@ public class Main {
         float[] label = readLabel();
         System.out.println(rows);
         System.out.println(cols);
-        String[] attributes =readAttributes(filePathData);
+        attributes =readAttributes(filePathData);
 //        for(int i = 0 ;i<attributes.length ; i++){
 //            System.out.println(attributes[i]);
 //        }
 //        System.out.println(Arrays.deepToString(data));
         Tree kh = new Tree();
         kh.creatTree(data,label);
+        kh.display();
+        System.out.println(kh.findDepth() - 2);
 //        float[] kc =kh.Sort(data,0,rows);
 //        for(int i=0 ;i < kc.length ; i++){
 //            System.out.println(kc[i]);
