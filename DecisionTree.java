@@ -1,8 +1,5 @@
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Scanner;
 
 public class DecisionTree {
 
@@ -63,34 +60,23 @@ public class DecisionTree {
     public void Traverse(Node root){
         if (root == null)
             return;
-
-        // Standard level order traversal code
-        // using queue
-        Queue<Node > q = new LinkedList<>(); // Create a queue
-        q.add(root); // Enqueue root
+        LinkedList<Node> q = new LinkedList<>();
+        q.add(root);
         while (!q.isEmpty())
         {
             int n = q.size();
 
-            // If this node has children
             while (n > 0)
             {
-                // Dequeue an item from queue
-                // and print it
                 Node p = q.peek();
                 q.remove();
                 p.display();
                 if(p.isLeaf)
                     System.out.println("out " +p.getOutcome());
-
-                // Enqueue all children of
-                // the dequeued item
                 for (int i = 0; i < p.children.size(); i++)
                     q.add(p.children.get(i));
                 n--;
             }
-
-            // Print new line between two levels
             System.out.println();
         }
     }

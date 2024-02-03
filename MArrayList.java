@@ -1,7 +1,7 @@
 public class MArrayList<T> {
     private Object[] array;
     private int size;
-    private static final int DEFAULT_CAPACITY = 1000;
+    private static final int DEFAULT_CAPACITY = 1600000;
 
     public MArrayList() {
         this.array = new Object[DEFAULT_CAPACITY];

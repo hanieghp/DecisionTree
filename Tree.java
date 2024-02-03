@@ -1,9 +1,10 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Tree {
     int depth;
     Node root=null;
-    MArrayList<Integer> maxDepth = new MArrayList<>();
+    ArrayList<Integer> maxDepth = new ArrayList<>();
     int count=0,count1=0,count2=0;
     public Tree(){
         this.depth = 0;
@@ -17,9 +18,16 @@ public class Tree {
     }
     public Node creatTree2(Node node,float[][] data,float[] lables){
         Node p = null;
+        if(root == null && node == null){
+            node = new Node(HighestInformationGain(data,lables),data,lables);
+            root =node;
+        }
+        if(node == null)
+            return p;
         if(iGain(data,HighestInformationGain(data,lables),lables) > 0){
-            p = new Node(HighestInformationGain(data,lables),data,lables);
-            node =p;
+            node.setFeatureIndex(HighestInformationGain(data,lables));
+
+           p=node;
             if(root == null){
                 root = p;
                 p.depth =0;
@@ -28,8 +36,9 @@ public class Tree {
             else{
                 p.depth = node.depth;
             }
-            System.out.println("Feature Index: " + HighestInformationGain(data,lables));
+            //System.out.println("Feature Index: " + HighestInformationGain(data,lables));
             float[] sort = Sort(p.data, p.getFeatureIndex(),p.data.length);
+            p.sorted = sort;
             for (int i = 0 ; i < sort.length;i++){
                 split(p,sort[i]);
                 Node child =  p.children.get(i);
@@ -104,51 +113,51 @@ public class Tree {
             tdata[i]=data[i];
             tlabel[i]=label[i];
         }
-        if(tlabel.length == 2 && (tlabel[0] != tlabel[1])){
-            float[][] kh2 = new float[1][ tdata[0].length] ;
-            float[][] kh3 = new float[1][ tdata[0].length] ;
-            for(int i=0 ; i< tdata[0].length ; i++){
-                kh2[0][i] = tdata[0][i];
-                kh3[0][i] = tdata[1][i];
-            }
-            float[] kh = new float[1];
-            kh[0] = tlabel[0];
-
-            parent.addchild(control,kh2,kh);
-             child1 =parent.children.get(0);
-            child1.setDepth(parent.depth+2);
-            maxDepth.add(child1.depth);
-//            System.out.println("control bargh : "+control + "data split " +Arrays.deepToString(child1.data));
-//            for(int i=0; i<child1.lables.length ; i++){
-//                System.out.println(tlabel[i]);
+        parent.addchild(control,tdata,tlabel);
+//        if(tlabel.length == 2 && (tlabel[0] != tlabel[1])){
+//            float[][] kh2 = new float[1][ tdata[0].length] ;
+//            float[][] kh3 = new float[1][ tdata[0].length] ;
+//            for(int i=0 ; i< tdata[0].length ; i++){
+//                kh2[0][i] = tdata[0][i];
+//                kh3[0][i] = tdata[1][i];
 //            }
-            kh[0] = tlabel[1];
-            parent.addchild(control,kh3,kh);
-             child2 =parent.children.get(1);
-            maxDepth.add(child2.depth);
-//            System.out.println("control bargh: "+control + "data split " +Arrays.deepToString(child2.data));
-//            for(int i=0; i<child2.lables.length ; i++){
-//                System.out.println(child2.lables[i]);
-//            }
-        }
+//            float[] kh = new float[1];
+//            kh[0] = tlabel[0];
+//
+//            parent.addchild(control,kh2,kh);
+//             child1 =parent.children.get(0);
+//            child1.setDepth(parent.depth+2);
+//            maxDepth.add(child1.depth);
+////            System.out.println("control bargh : "+control + "data split " +Arrays.deepToString(child1.data));
+////            for(int i=0; i<child1.lables.length ; i++){
+////                System.out.println(tlabel[i]);
+////            }
+//            kh[0] = tlabel[1];
+//            parent.addchild(control,kh3,kh);
+//             child2 =parent.children.get(1);
+//            maxDepth.add(child2.depth);
+////            System.out.println("control bargh: "+control + "data split " +Arrays.deepToString(child2.data));
+////            for(int i=0; i<child2.lables.length ; i++){
+////                System.out.println(child2.lables[i]);
+////            }
+//        }
 //        if(Entropy(tdata, parent.getFeatureIndex(),-1,tlabel) == 0){
 //            parent.setLeaf(true);
 //        }
-        parent.addchild(control,tdata,tlabel);
 //        System.out.println("control : "+control + "data split " +Arrays.deepToString(tdata) + "attribute " + parent.children.get((int)control).getFeatureIndex() + " E " + Entropy(data, parent.getFeatureIndex(),-1,label));
-        for(int i=0; i<tlabel.length ; i++){
-            System.out.println(tlabel[i]);
-        }
-        if(child1 != null && child2!= null){
+//        for(int i=0; i<tlabel.length ; i++){
+//            System.out.println(tlabel[i]);
+//        }
+//        if(child1 != null && child2!= null){
 //        System.out.println("control bargh : "+control + "data split " +Arrays.deepToString(child1.data) + "attribute: " + child1.getFeatureIndex() + " leaf " + child1.isLeaf() + " E " + Entropy(tdata, child1.getFeatureIndex(),-1,tlabel));
-        for(int i=0; i<child1.lables.length ; i++){
-            System.out.println(child1.lables[i]);
-        }
+//        for(int i=0; i<child1.lables.length ; i++){
+//            System.out.println(child1.lables[i]);
+//        }
 //            System.out.println("control bargh: "+control + "data split " +Arrays.deepToString(child2.data)+ "attribute: " + child2.getFeatureIndex() + " leaf " + child2.isLeaf() + " E " + Entropy(tdata, child2.getFeatureIndex(),-1,tlabel));
-            for(int i=0; i<child2.lables.length ; i++){
-                System.out.println(child2.lables[i]);
-            }
-    }}
+//            for(int i=0; i<child2.lables.length ; i++){
+//                System.out.println(child2.lables[i]);
+//            }}
+    }
     public void display() {
         displayRecursively(root, 0);
     }
@@ -158,7 +167,7 @@ public class Tree {
             //System.out.println("khkhkh"+ node.children.get(0));
             StringBuilder indentation = new StringBuilder();
             for (int i = 0; i < depth; i++) {
-                indentation.append(" <> ");
+                indentation.append(" ");
             }
             int featureIndex = node.getFeatureIndex();
             float featureValue = node.getValue();
@@ -176,8 +185,10 @@ public class Tree {
         float igain0 = iGain(data,0,labels);
         for(int i = 1 ; i < data[0].length; i++ ){
             float igain = iGain(data,i,labels);
-            if(igain >igain0)
+            if(igain >igain0){
                 indexmax = i;
+                igain0 = iGain(data,indexmax,labels);
+            }
         }
         return indexmax;
     }

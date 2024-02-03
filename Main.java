@@ -1,20 +1,25 @@
 import java.io.*;
 //import java.util.Arrays;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
-    public static final int rows = 10;
-    public static final int cols = 8;
+//    public static final int rows = 15;
+//    public static final int cols = 4;
     public static final String filePathData = "src/Data/feature_train.csv";
     public static final String filePathLabel = "src/Data/label_train.csv";
+    public static final String filePathDataTest = "src/Data/feature_test.csv";
+    public static final String filePathLabelTest = "src/Data/label_test.csv";
     public static String[] attributes;
-    //public static int rows,cols;
+    public static int rows,cols;
     public static void main(String[] args) throws IOException {
-//        rows = getRowCount(filePathData);
-//        cols = getColumnCount(filePathData);
-        float[][] data = readData();
-        float[] label = readLabel();
+        float[] test = {0,0,1,1};
+        float[][] testAll = {{1,1,1,1},{0,0,1,0},{1,0,1,0},{0,0,1,1},{0,0,1,0}};
+        rows = getRowCount(filePathData);
+        cols = getColumnCount(filePathData);
+        float[][] data = readData(filePathData);
+        float[] label = readLabel(filePathLabel);
+        float[][] dataTest = readData(filePathDataTest);
+        float[] labelTest = readLabel(filePathLabelTest);
         System.out.println(rows);
         System.out.println(cols);
         attributes =readAttributes(filePathData);
@@ -23,18 +28,22 @@ public class Main {
 //        }
 //        System.out.println(Arrays.deepToString(data));
         Tree kh = new Tree();
-        kh.creatTree(data,label);
-        kh.display();
-        System.out.println(kh.findDepth() - 2);
+        kh.createTree(data,label);
+        DecisionTree  dt = new DecisionTree(data,label);
+        dt.Traverse(dt.root);
+        //dt.Predict(test,17);
+//        float[] kh = dt.PredictAll(dataTest,0);
+//        float accur = dt.accuracy(labelTest,kh);
+        //System.out.println(kh.findDepth() - 2);
 //        float[] kc =kh.Sort(data,0,rows);
 //        for(int i=0 ;i < kc.length ; i++){
 //            System.out.println(kc[i]);
 //        }
     }
 
-    private static float[][] readData() throws FileNotFoundException {
+    private static float[][] readData(String fileData) throws FileNotFoundException {
         float[][] data = new float[rows][cols];
-        File file = new File(filePathData);
+        File file = new File(fileData);
 
         try (Scanner sc = new Scanner(file)) {
             sc.nextLine();
@@ -47,9 +56,9 @@ public class Main {
         }
         return data;
     }
-    private static float[] readLabel() throws FileNotFoundException{
+    private static float[] readLabel(String fileLabel) throws FileNotFoundException{
         float[] label = new float[rows];
-        File file = new File(filePathLabel);
+        File file = new File(fileLabel);
 
         try (Scanner sc = new Scanner(file)) {
             sc.nextLine();
