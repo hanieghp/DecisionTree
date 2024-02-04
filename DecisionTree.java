@@ -1,6 +1,4 @@
 import java.io.FileNotFoundException;
-import java.util.LinkedList;
-
 public class DecisionTree {
 
     private float[][] data;
@@ -19,19 +17,27 @@ public class DecisionTree {
     }
     float Predict(float[] dataTest, int depth){
         Node node = root;
+        System.out.println();
         while(!node.isLeaf && node != null){
+            Node p = new Node(node.getFeatureIndex(),node.data,node.lables);
             for(int i=0;i< node.children.size() ;i++){
+                //System.out.println("node" + node.getFeatureIndex() + "kh "+node.sorted[i] + "in" +dataTest[node.getFeatureIndex()]);
+
                 if(dataTest[node.getFeatureIndex()] == node.sorted[i]){
                     node = node.children.get(i);
                     break;
                 }
             }
+            if(p.data == node.data && p.lables == node.lables){
+                node = node.children.get(0);
+
+            }
             if(node.children.size() == 0)
                 break;
-            System.out.println("gir");
-            node.display();
+            //System.out.println("gir");
+            //node.display();
         }
-        System.out.println("kh" + node.getOutcome());
+        //System.out.println("kh" + node.getOutcome());
         return node.getOutcome();
     }
     float[] PredictAll(float[][] dataTest, int depth){
@@ -40,7 +46,7 @@ public class DecisionTree {
             test[i] = Predict(dataTest[i],0);
             //System.out.println(test[i]);
         }
-        System.out.println("m");
+       // System.out.println("m");
 //        for(int i=0;i<test.length ; i++){
 //            System.out.println(test[i]);
 //        }
@@ -50,17 +56,18 @@ public class DecisionTree {
         System.out.println("tosham");
         int count = 0;
         for(int i=0;i<labels.length ; i++){
+            System.out.println("true" + labels[i] + "perdicted" + labels_predicted[i]);
             if(labels[i]== labels_predicted[i])
                 count++;
         }
 
-        return (count/labels.length)*100;
+        return (float) count/labels.length * 100;
     }
 
-    public void Traverse(Node root){
+    public void Traverse(Node root) throws Exception {
         if (root == null)
             return;
-        LinkedList<Node> q = new LinkedList<>();
+        MyQueue q = new MyQueue();
         q.add(root);
         while (!q.isEmpty())
         {
@@ -70,6 +77,7 @@ public class DecisionTree {
             {
                 Node p = q.peek();
                 q.remove();
+                //if(p.getFeatureIndex() == 15)
                 p.display();
                 if(p.isLeaf)
                     System.out.println("out " +p.getOutcome());
