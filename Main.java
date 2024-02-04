@@ -11,7 +11,7 @@ public class Main {
     public static final String filePathLabelTest = "src/Data/label_test.csv";
     public static String[] attributes;
     public static int rows,cols;
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         float[] test = {0,0,1,1};
         float[][] testAll = {{1,1,1,1},{0,0,1,0},{1,0,1,0},{0,0,1,1},{0,0,1,0}};
         rows = getRowCount(filePathData);
@@ -30,14 +30,17 @@ public class Main {
         Tree kh = new Tree();
         kh.createTree(data,label);
         DecisionTree  dt = new DecisionTree(data,label);
+        //float[] t = kh.Sort(data,0, data.length);
+
         dt.Traverse(dt.root);
         //dt.Predict(test,17);
-//        float[] kh = dt.PredictAll(dataTest,0);
-//        float accur = dt.accuracy(labelTest,kh);
+//        float[] kh2 = dt.PredictAll(dataTest,0);
+//        float accur = dt.accuracy(labelTest,kh2);
+//        System.out.println(accur);
         //System.out.println(kh.findDepth() - 2);
 //        float[] kc =kh.Sort(data,0,rows);
-//        for(int i=0 ;i < kc.length ; i++){
-//            System.out.println(kc[i]);
+//        for(int i=0 ;i < t.length ; i++){
+//            System.out.println(t[i]);
 //        }
     }
 

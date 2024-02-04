@@ -1,15 +1,15 @@
 public class MyLinkedList<T> {
-    private NodeTraverse<T> head;
+    private Node head;
 
-    public NodeTraverse<T> getHead() {
+    public Node getHead() {
         return head;
     }
 
-    public void add(NodeTraverse<T> node) {
+    public void add(Node node) {
         if (head == null) {
             head = node;
         } else {
-            NodeTraverse<T> current = head;
+            Node current = head;
             while (current.getNext() != null) {
                 current = current.getNext();
             }
