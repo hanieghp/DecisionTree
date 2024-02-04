@@ -244,7 +244,8 @@ public class Tree {
     }
     float[] Sort(float[][] arr,int columeofintrest, int n){
         float[] arr2 = new float[arr.length];
-        for(int i =0;i < arr.length;i++) {
+        n--;
+        for(int i =0;i < n ;i++) {
             arr2[i] = arr[i][columeofintrest];
         }
         int i, j, temp;
@@ -277,7 +278,7 @@ public class Tree {
         }
         kh[k++] = arr2[n -1];
         float[] arr3 = new float[k];
-        for(int z = 0 ; z < k;z++)
+        for(int z = 0 ; z < k ;z++)
             arr3[z]=kh[z];
         return arr3;
     }

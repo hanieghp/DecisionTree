@@ -2,7 +2,18 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Node {
+    Node next;
+
+    public Node getNext() {
+        return next;
+    }
+
     private int featureIndex;
+
+    public void setNext(Node next) {
+        this.next = next;
+    }
+
     float[] sorted;
 //    private float outcome = -1;
     ArrayList<Node> children = new ArrayList<>();
@@ -33,7 +44,6 @@ public class Node {
         if(isLeaf) {
             int[] count = new int[3];
             float[] arr2 = new float[data.length];
-            System.out.println("arr2  " + arr2.length);
             for (int i = 0; i < arr2.length; i++) {
                 switch ((int) lables[i]) {
                     case 0:
@@ -71,6 +81,11 @@ public class Node {
          this.data =data;
          this.lables=lables;
     }
+    public Node(float value, float[][] data, float[] lables) {
+        this.value = value;
+        this.data =data;
+        this.lables=lables;
+    }
     public Node(int featureIndex,float[][] data,float[] lables,float value) {
         this.featureIndex = featureIndex;
         this.value = value;
@@ -93,8 +108,8 @@ public class Node {
         this.isLeaf = false;
         return newborn;
     }
-    public Node addchild(float kh,float[][] data,float[] lables){
-        Node newborn = new Node(featureIndex,data,lables,kh);
+    public Node addchild(float value,float[][] data,float[] lables){
+        Node newborn = new Node(value,data,lables);
         children.add(newborn);
 //        System.out.println("newchild add");
         this.isLeaf = false;
@@ -102,6 +117,11 @@ public class Node {
     }
     public void display(){
         System.out.println("attribute "+ Main.attributes[featureIndex] + " value "+ value + " depth "+ depth + " isLeaf " + isLeaf + " children " + children.size());
+        if(sorted != null){
+            for(int i =0;i < sorted.length ; i++){
+                System.out.println(sorted[i]);
+            }
+        }
         for(int i = 0; i <data.length ;i++){
             System.out.print("data ");
             for(int j = 0 ; j< data[0].length;j++){
