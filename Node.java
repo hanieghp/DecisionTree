@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class Node {
     Node next;
@@ -58,7 +57,7 @@ public class Node {
                 }
             }
             int indexmax = count[0];
-            for (int i = 1; i < 3; i++) {
+            for (int i = 1; i < count.length; i++) {
                 if (count[i] > indexmax){
                     indexmax = count[i];
                     temp = i;
@@ -117,11 +116,11 @@ public class Node {
     }
     public void display(){
         System.out.println("attribute "+ Main.attributes[featureIndex] + " value "+ value + " depth "+ depth + " isLeaf " + isLeaf + " children " + children.size());
-        if(sorted != null){
-            for(int i =0;i < sorted.length ; i++){
-                System.out.println(sorted[i]);
-            }
-        }
+//        if(sorted != null){
+//            for(int i =0;i < sorted.length ; i++){
+//                System.out.println(sorted[i]);
+//            }
+//        }
         for(int i = 0; i <data.length ;i++){
             System.out.print("data ");
             for(int j = 0 ; j< data[0].length;j++){
@@ -129,6 +128,11 @@ public class Node {
             }
             System.out.println(" label "+ lables[i]);
         }
+    }
+
+    public void display2(){
+        System.out.print(" [ attribute "+ Main.attributes[featureIndex] + " value "+ value + " depth "+ depth + " isLeaf " + isLeaf + " children " + children.size());
+
     }
 
     public float getValue() {
