@@ -1,10 +1,11 @@
 import java.io.*;
 //import java.util.Arrays;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
-//    public static final int rows = 15;
-//    public static final int cols = 4;
+//    public static final int rows = 50;
+//    public static final int cols = 10;
     public static final String filePathData = "src/Data/feature_train.csv";
     public static final String filePathLabel = "src/Data/label_train.csv";
     public static final String filePathDataTest = "src/Data/feature_test.csv";
@@ -12,8 +13,6 @@ public class Main {
     public static String[] attributes;
     public static int rows,cols;
     public static void main(String[] args) throws Exception {
-        float[] test = {0,0,1,1};
-        float[][] testAll = {{1,1,1,1},{0,0,1,0},{1,0,1,0},{0,0,1,1},{0,0,1,0}};
         rows = getRowCount(filePathData);
         cols = getColumnCount(filePathData);
         float[][] data = readData(filePathData);
@@ -26,17 +25,21 @@ public class Main {
 //        for(int i = 0 ;i<attributes.length ; i++){
 //            System.out.println(attributes[i]);
 //        }
-//        System.out.println(Arrays.deepToString(data));
-        Tree kh = new Tree();
-        kh.createTree(data,label);
+        //System.out.println(Arrays.deepToString(data));
+//        Tree kh = new Tree();
+//        kh.createTree(data,label);
         DecisionTree  dt = new DecisionTree(data,label);
+        //RandomForest rf = new RandomForest(data,label);
+        //rf.randomize();
         //float[] t = kh.Sort(data,0, data.length);
 
-        dt.Traverse(dt.root);
+        //dt.Traverse(dt.root);
+        //dt.Traverse2(dt.root);
+        dt.Traverse3(dt.root);
         //dt.Predict(test,17);
-//        float[] kh2 = dt.PredictAll(dataTest,0);
-//        float accur = dt.accuracy(labelTest,kh2);
-//        System.out.println(accur);
+        float[] kh2 = dt.PredictAll(dataTest,10);
+        float accur = dt.accuracy(labelTest,kh2);
+       System.out.println("accuracy: " + accur);
         //System.out.println(kh.findDepth() - 2);
 //        float[] kc =kh.Sort(data,0,rows);
 //        for(int i=0 ;i < t.length ; i++){
