@@ -74,53 +74,53 @@ public class DecisionTree {
         return (float) count/labels.length * 100;
     }
 
-    public void Traverse(Node root) throws Exception {
-        if (root == null)
-            return;
-        MyQueue q = new MyQueue();
-        q.add(root);
-        while (!q.isEmpty())
-        {
-            int n = q.size();
+    // public void Traverse(Node root) throws Exception {
+    //     if (root == null)
+    //         return;
+    //     MyQueue q = new MyQueue();
+    //     q.add(root);
+    //     while (!q.isEmpty())
+    //     {
+    //         int n = q.size();
 
-            while (n > 0)
-            {
-                Node p = q.peek();
-                q.remove();
-                //if(p.getFeatureIndex() == 15)
-                p.display();
-                if(p.isLeaf)
-                    System.out.println("out " +p.getOutcome());
-                for (int i = 0; i < p.children.size(); i++)
-                    q.add(p.children.get(i));
-                n--;
-            }
-            System.out.println();
-        }
-    }
-    public void Traverse2(Node root) throws Exception {
-        if (root == null)
-            return;
-        MyQueue q = new MyQueue();
-        q.add(root);
-        while (!q.isEmpty())
-        {
-            int n = q.size();
-            while (n > 0)
-            {
-                Node p = q.peek();
-                q.remove();
-                p.display2();
-                if(p.isLeaf)
-                    System.out.print(" out " +p.getOutcome() );
-                System.out.print(" ] ");
-                for (int i = 0; i < p.children.size(); i++)
-                    q.add(p.children.get(i));
-                n--;
-            }
-            System.out.println();
-        }
-    }
+    //         while (n > 0)
+    //         {
+    //             Node p = q.peek();
+    //             q.remove();
+    //             //if(p.getFeatureIndex() == 15)
+    //             p.display();
+    //             if(p.isLeaf)
+    //                 System.out.println("out " +p.getOutcome());
+    //             for (int i = 0; i < p.children.size(); i++)
+    //                 q.add(p.children.get(i));
+    //             n--;
+    //         }
+    //         System.out.println();
+    //     }
+    // }
+    // public void Traverse2(Node root) throws Exception {
+    //     if (root == null)
+    //         return;
+    //     MyQueue q = new MyQueue();
+    //     q.add(root);
+    //     while (!q.isEmpty())
+    //     {
+    //         int n = q.size();
+    //         while (n > 0)
+    //         {
+    //             Node p = q.peek();
+    //             q.remove();
+    //             p.display2();
+    //             if(p.isLeaf)
+    //                 System.out.print(" out " +p.getOutcome() );
+    //             System.out.print(" ] ");
+    //             for (int i = 0; i < p.children.size(); i++)
+    //                 q.add(p.children.get(i));
+    //             n--;
+    //         }
+    //         System.out.println();
+    //     }
+    // }
     public void Traverse3(Node root) throws Exception {
         JFrame frame = new JFrame("kh");
         DefaultMutableTreeNode node = new DefaultMutableTreeNode("root");
