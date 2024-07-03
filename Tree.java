@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class Tree {
     int depth;
@@ -19,12 +19,14 @@ public class Tree {
     public Node creatTree2(Node node,float[][] data,float[] lables){
         Node p = null;
         if(root == null && node == null){
+            System.out.println(HighestInformationGain(data,lables));
             node = new Node(HighestInformationGain(data,lables),data,lables);
             root =node;
         }
-        if(node == null)
-            return p;
-        if(iGain(data,HighestInformationGain(data,lables),lables) > 0){
+        if(node == null){
+            //System.out.println("node is null");
+            return p;}
+        if(iGain(data,HighestInformationGain(data,lables),lables) > 0 /*&& Entropy(node.data, node.getFeatureIndex(), -1, node.lables) != 0*/){
             node.setFeatureIndex(HighestInformationGain(data,lables));
 
            p=node;
@@ -172,7 +174,7 @@ public class Tree {
             int featureIndex = node.getFeatureIndex();
             float featureValue = node.getValue();
 
-            System.out.println(indentation + " Feature: " + featureIndex + ", Value: " + featureValue + "  att: " + Main.attributes[featureIndex]);
+            System.out.println(indentation + " Feature: " + featureIndex + ", Value: " + featureValue + "  att: " + Main.attributes[featureIndex] + "depth " + node.depth);
             for (int i = 0; i < node.children.size(); i++) {
                 System.out.println("bache");
                 displayRecursively(node.children.get(i), depth + 1);
@@ -182,6 +184,7 @@ public class Tree {
 
    public int HighestInformationGain(float[][] data,float[] labels){
         int indexmax = 0;
+
         float igain0 = iGain(data,0,labels);
         for(int i = 1 ; i < data[0].length; i++ ){
             float igain = iGain(data,i,labels);
@@ -276,6 +279,7 @@ public class Tree {
             if (arr2[z] != arr2[z + 1])
                 kh[k++] = arr2[z];
         }
+
         kh[k++] = arr2[n -1];
         float[] arr3 = new float[k];
         for(int z = 0 ; z < k ;z++)
